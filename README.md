@@ -54,6 +54,7 @@ Upload the architecture diagram you made for your slide presentation to your rep
 Create several paragraphs of narrative to explain the pieces and how they interoperate.
 
 ## Schedule
+Fred's Text(
 Explain how you will go from proposal to finished product. 
 
 There are three deliverable milestones to explicitly define, below.
@@ -63,15 +64,16 @@ The nature of deliverables depend on your project, but may include things like p
 You will be expected to turn in code, documentation, and data (as appropriate) at each of these stages.
 
 Write concrete steps for your schedule to move from concept to working system. 
+)
 
 ### First Milestone (Fri Apr 15)
-What exactly will be turned in on this day? 
+Client-server architecture has been set up.  Front-end will be at the very least functional and display the game board and will be able to draw pieces to hard coded spots.  Server work to verify these moves should be working for obvious cases.  The two player system will possibly completed based on how quickly the previous tasks are completed. The algorithms for both AI clients will be under development at this time.
 
 ### Second Milestone (Fri Apr 22)
-What exactly will be turned in on this day? 
+Server will be properly verifying moves, with edge cases considered.  Front-end will be complete as far as visual interface.  Two player mode should be functional.  The server should also allow for a human-controlled client to play against an AI cliet so that testing of the AI algorithms can happen easier.  The AI clients should be at the very least in prototype stage where they can be played against by a human-controlled client with some demonstration of functionality.  The two AI's should be discernable at this stage already even if the smarter AI is not perfect yet.  Work should begin that will allow these two AI's to be played against eachother in some capacity to demonstrate their effectiveness in the final presentation.
 
 ### Final Presentation (last week of semester)
-What additionally will be done in the last chunk of time?
+By this point the two AI's should now be functional enough to be played against fluidly by human players.  The server should also now support the functionality of playing the two AI's against eachother so that it can be shown that they superior AI wins every time.  This will be implemented in whichever way is the most effiencient based on the client-server implementation.  
 
 ## Group Responsibilities
 Here each group member gets a section where they, as an individual, detail what they are responsible for in this project. Each group member writes their own Responsibility section. Include the milestones and final deliverable.
@@ -84,11 +86,11 @@ Here each group member gets a section where they, as an individual, detail what 
 
 In the headings below, replace the silly names and GitHub handles with your actual ones.
 
-### Susan Scheme @susanscheme
+### Samir Khoulani @skhoulani
 will write the....
 
-### Leonard Lambda @lennylambda
+### Brendan Bousquet @brendanbousquet
 will work on...
 
-### Frank Functions @frankiefunk 
+### Sean Berube @sberube484
 Frank is team lead. Additionally, Frank will work on...  
