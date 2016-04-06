@@ -24,6 +24,8 @@ We can demonstrate our success by showing that a game can be completed successfu
 ## Architecture Diagram
 ![ArchitectureDiagram.PNG](https://github.com/oplS16projects/Berube-Bousquet-Khoulani/blob/master/ArchitectureDiagram.PNG)
 
+The server will open a TCP server-socket that searches for connections. Upon finding a connection, it can choose to accept it and thus establish a line of communication with the client. The client will create a connection using TCP, which can be accepted by the server.
+
 ## Schedule
 ### First Milestone (Fri Apr 15)
 Client-server architecture has been set up.  Front-end will be at the very least functional and display the game board and will be able to draw pieces to hard coded spots.  Server work to verify these moves should be working for obvious cases.  The two player system will possibly completed based on how quickly the previous tasks are completed. The algorithms for both AI clients will be under development at this time.
