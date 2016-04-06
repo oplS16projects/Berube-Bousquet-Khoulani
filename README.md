@@ -22,8 +22,7 @@ We will at the time of the demonstration be able to show the program working in 
 We can demonstrate our success by showing that a game can be completed successfully (meaning all moves follow the rules of checkers) between two humans, and between a human and both of the AI's repectively.  However we would be left with the issue of how good the AI's are comparatively.  We can show the "perfect" AI is better than the "human" AI by creating an interface in which the two AI clients are connected to a server to play a game against one another.  In this situation the "perfect" AI will beat the "human" AI every time.  That way the AI's can be considered objectively successful in the manner in which they are constructed.
 
 ## Architecture Diagram
-
-
+![ArchitectureDiagram.PNG](https://github.com/oplS16projects/Berube-Bousquet-Khoulani/blob/master/ArchitectureDiagram.PNG)
 
 ## Schedule
 ### First Milestone (Fri Apr 15)
