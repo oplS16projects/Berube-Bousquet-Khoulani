@@ -42,10 +42,10 @@ By this point the two AI's should now be functional enough to be played against 
 
 ## Group Responsibilities
 ### Samir Khoulani @skhoulani
-will write the....
+Samir's job is to develop a basic heuristic that will result in an "easy" mode AI. In addition, Samir's tasks will be split between aiding the development of the advanced AI and server side communication programming, pending the completion of his simple AI. Testing of the simple AI will also be done following the fruition of the simple AI.
 
 ### Brendan Bousquet @brendanbousquet
-will be responsible for contructing the smarter of the two AI.  Samir will likely assist with this once his AI is done toward the tail end of the project timeline.  Brendan will be tasked with finding methods to test the functionality of the AI after it has been developed.  Brendan will assist with some of the front end work while the research and initial implementation is being constructed for the AI.
+Brendan will be responsible for contructing the smarter of the two AI.  Samir will likely assist with this once his AI is done toward the tail end of the project timeline. Brendan will be tasked with finding methods to test the functionality of the AI after it has been developed. Brendan will assist with some of the front end work while the research and initial implementation is being constructed for the AI.
 
 ### Sean Berube @sberube484
 Sean is team lead. He will be working on the front end and will implement the 2-player mode. He will also work on implementing a server using localhost to communicate between the ui and the server. The server will most likely be implemented using TCP sockets.
