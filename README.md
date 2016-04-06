@@ -26,6 +26,10 @@ We can demonstrate our success by showing that a game can be completed successfu
 
 The server will open a TCP server-socket that searches for connections. Upon finding a connection, it can choose to accept it and thus establish a line of communication with the client. The client will create a connection using TCP, which can be accepted by the server.
 
+We will create a series of clients that will communicate with the server.  One client can support 2 human players, the others support human players playing against 2 different AI's.  Each AI will have it's own seperate client.  The AI clients will communicate with the server to validate and log their moves.  
+
+We felt it would be good practice to keep the human client from being able to communicate with the server, so the GUI will directly send the moves of the human player to be validated, and also communicate with the human client.  Both of the AI clients will be able to display their moves to the GUI via the server after their moves are validated.
+
 ## Schedule
 ### First Milestone (Fri Apr 15)
 Client-server architecture has been set up.  Front-end will be at the very least functional and display the game board and will be able to draw pieces to hard coded spots.  Server work to verify these moves should be working for obvious cases.  The two player system will possibly completed based on how quickly the previous tasks are completed. The algorithms for both AI clients will be under development at this time.
