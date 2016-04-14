@@ -32,10 +32,10 @@ We felt it would be good practice to keep the human client from being able to co
 
 ## Schedule
 ### First Milestone (Fri Apr 15)
-Progress as of 4/15:
+####Progress as of 4/15:
 Server has been set up so that in our testing a client could send information successfully to the server.  We are still working on the server validating the moves and might make the decision to have the game piece moves validated locally by the client, as it is faster and overall creates less complexity within the architecture's functionality.  The front-end can draw the board and add pieces to the board with hard coded locations.  Still need to add 'kinging' functionality to the pieces but at this point that is the only unaccomplished visual component.  Movement and piece jumping functionality is near finsihed and will likely be up within a few days.  The two AIs are still in their infancy, but we will be moving from pseudo code algorithms and starting to implement them in Racket by the end of next week hopefully.
 
-Proposed Progress:
+####Proposed Progress:
 Client-server architecture has been set up.  Front-end will be at the very least functional and display the game board and will be able to draw pieces to hard coded spots.  Server work to verify these moves should be working for obvious cases.  The two player system will possibly completed based on how quickly the previous tasks are completed. The algorithms for both AI clients will be under development at this time.
 
 
