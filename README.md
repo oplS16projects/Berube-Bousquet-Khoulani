@@ -40,6 +40,10 @@ Client-server architecture has been set up.  Front-end will be at the very least
 
 
 ### Second Milestone (Fri Apr 22)
+####Progress as of 4/22:
+Server is close to verifying player moves and Sean has been making progress on that front.  We will likely be able to use the server to validate moves as originally planned.  The front-end has expanded to handle player moves, piece jumps/captures, and the rejection of invalid inputs.  The only remaining component of the front-end to be implemented will be 'kinged' pieces, which will be implemented in the next week.  With the front-end finished we can begin to make real strides in the AI components of the project.  We have planned out how the AIs are going to function, but had to delay the actual coding of them until we had a more concrete front-end.  With that in place we will use our strategies described in the attached pseudo code to create our implementations.  In addition to those strategies we may implement a minimax type of strategy that uses branching to predict the best moves.  It will all come down to which implementation we deem the most effective for the time we have to code and debug it.
+
+####Proposed Progress:
 Server will be properly verifying moves, with edge cases considered.  Front-end will be complete as far as visual interface.  Two player mode should be functional.  The server should also allow for a human-controlled client to play against an AI cliet so that testing of the AI algorithms can happen easier.  The AI clients should be at the very least in prototype stage where they can be played against by a human-controlled client with some demonstration of functionality.  The two AI's should be discernable at this stage already even if the smarter AI is not perfect yet.  Work should begin that will allow these two AI's to be played against eachother in some capacity to demonstrate their effectiveness in the final presentation.
 
 ### Final Presentation (last week of semester)
