@@ -125,7 +125,7 @@
 
 ;;new stuff
 
-(define (ai-moves3 board difficulty)
+(define (ai-move2 board difficulty)
      ;;((= p1turn 1)(error "wrong piece, it's player one's turn!"))
      ;;((equal? difficulty easy)
       (do ((i 0 (+ i 1))) ((= i 8))
@@ -144,55 +144,70 @@
                ((and (< i 8)
                      (< (+ i 2) 8)
                      (< j 6)
-                     (equal? (get-state board (+ i 2) (+ j 2)) 'BLANK) ;jump move
-                     (equal? (get-state board (jumpedspace i (+ i 2)) (jumpedspace j (+ j 2))) 'P1))
-                (list i j (+ i 2) (+ j 2)))
-                  
-               
+                     (equal? (get-state board (+ i 2) (+ j 2)) 'BLANK)) ;jump move
+                     (if (equal? (get-state board (jumpedspace i (+ i 2)) (jumpedspace j (+ j 2))) 'P1)
+                         (list i j (+ i 2) (+ j 2))
+                         void))
+                     
                ((and (> i 0)
                      (> (- i 2) 0)
                      (< j 6)
-                     (equal? (get-state board (- i 2) (+ j 2)) 'BLANK) ;jump move
-                     (equal? (get-state board (jumpedspace i (- i 2)) (jumpedspace j (+ j 2))) 'P1))
-                (list i j (- i 2) (+ j 2)))
+                     (equal? (get-state board (- i 2) (+ j 2)) 'BLANK)) ;jump move
+                     (if (equal? (get-state board (jumpedspace i (- i 2)) (jumpedspace j (+ j 2))) 'P1)
+                         (list i j (- i 2) (+ j 2))
+                         void))
 
                ((and (< i 8)
                      (< j 8)
                      (equal? (get-state board (+ i 1) (+ j 1)) 'BLANK)) ;reg move
-                (list i j (+ i 1) (+ j 1)))
+                (list i j (+ i 1) (+ j 1))
+                void)
                
                ((and (> i 0)
                      (< j 8)
                      (equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move
-                (list i j (- i 1) (+ j 1)))
+                (list i j (- i 1) (+ j 1))
+                void)
                (else "no move"))))))))
 
 ;;;; break Fred's changes above^
 
-(define (ai-moves2 board difficulty)
+(define (ai-move board difficulty)
      ;;((= p1turn 1)(error "wrong piece, it's player one's turn!"))
      ;;((equal? difficulty easy)
       (do ((i 0 (+ i 1))) ((= i 7))
+        (display "entering first loop...")
         (do ((j 0 (+ j 1))) ((= j 7))
+          (display "entering second loop...")
           (cond
             ((equal? (get-state board i j) 'P2)
              (cond
 
-               ((and (< i 8) (< (+ i 2) 8) (< j 6)(equal? (get-state board (+ i 2) (+ j 2)) 'BLANK)) ;jump move
+               ((and (< i 8)
+                     (< (+ i 2) 8)
+                     (< j 6)
+                     (equal? (get-state board (+ i 2) (+ j 2)) 'BLANK)) ;jump move, 1st case
                 (if (equal? (get-state board (jumpedspace i (+ i 2)) (jumpedspace j (+ j 2))) 'P1)
-                    (begin (move game i j (+ i 2) (+ j 2)) void)
+                    (begin (move game i j (+ i 2) (+ j 2))(display "tripped 1st case...") void)
                     void))
                
-               ((and (> i 0) (> (- i 2) 0) (< j 6)(equal? (get-state board (- i 2) (+ j 2)) 'BLANK)) ;jump move
+               ((and (> i 0)
+                     (> (- i 2) 0)
+                     (< j 6)
+                     (equal? (get-state board (- i 2) (+ j 2)) 'BLANK)) ;jump move, 2nd case
                 (if (equal? (get-state board (jumpedspace i (- i 2)) (jumpedspace j (+ j 2))) 'P1)
-                    (begin (move game i j (- i 2) (+ j 2)) void)
+                    (begin (move game i j (- i 2) (+ j 2))(display "tripped 2nd case...") void)
                  void))
 
-               ((and (< i 8)(< j 8)(equal? (get-state board (+ i 1) (+ j 1)) 'BLANK)) ;reg move
-                (begin (move game i j (+ i 1) (+ j 1))))
+               ((and (< i 8)
+                     (< j 8)
+                     (equal? (get-state board (+ i 1) (+ j 1)) 'BLANK)) ;reg move, 3rd case
+                (begin (move game i j (+ i 1) (+ j 1)))(display "tripped 3rd case...") void)
                
-               ((and (> i 0)(< j 8)(equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move
-                (begin (move game i j (- i 1) (+ j 1))))
+               ((and (> i 0)
+                     (< j 8)
+                     (equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move, 4th case
+                (begin (move game i j (- i 1) (+ j 1)))(display "tripped 4th case...") void)
                
               
                (else void)))
