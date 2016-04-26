@@ -123,6 +123,122 @@
   (draw-board board))
 
 
-;this creates the game
+;;new stuff
+
+(define (ai-moves3 board difficulty)
+     ;;((= p1turn 1)(error "wrong piece, it's player one's turn!"))
+     ;;((equal? difficulty easy)
+      (do ((i 0 (+ i 1))) ((= i 8))
+        (do ((j 0 (+ j 1))) ((= j 8))
+          (begin (display "i is ")
+                 (display i)
+                 (display " j is ")
+                 (display j)
+                 (display "\n")
+
+                          
+          (cond
+            ((equal? (get-state board i j) 'P2)
+             (cond
+
+               ((and (< i 8)
+                     (< (+ i 2) 8)
+                     (< j 6)
+                     (equal? (get-state board (+ i 2) (+ j 2)) 'BLANK) ;jump move
+                     (equal? (get-state board (jumpedspace i (+ i 2)) (jumpedspace j (+ j 2))) 'P1))
+                (list i j (+ i 2) (+ j 2)))
+                  
+               
+               ((and (> i 0)
+                     (> (- i 2) 0)
+                     (< j 6)
+                     (equal? (get-state board (- i 2) (+ j 2)) 'BLANK) ;jump move
+                     (equal? (get-state board (jumpedspace i (- i 2)) (jumpedspace j (+ j 2))) 'P1))
+                (list i j (- i 2) (+ j 2)))
+
+               ((and (< i 8)
+                     (< j 8)
+                     (equal? (get-state board (+ i 1) (+ j 1)) 'BLANK)) ;reg move
+                (list i j (+ i 1) (+ j 1)))
+               
+               ((and (> i 0)
+                     (< j 8)
+                     (equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move
+                (list i j (- i 1) (+ j 1)))
+               (else "no move"))))))))
+
+;;;; break Fred's changes above^
+
+
+;;;; Simple AI outline
+(define (ai-moves2 board difficulty)
+     ;;((= p1turn 1)(error "wrong piece, it's player one's turn!"))
+     ;;((equal? difficulty easy)
+      (do ((i 0 (+ i 1))) ((= i 7))
+        (do ((j 0 (+ j 1))) ((= j 7))
+          (cond
+            ((equal? (get-state board i j) 'P2)
+             (cond
+
+               ((and (< i 8) (< (+ i 2) 8) (< j 6)(equal? (get-state board (+ i 2) (+ j 2)) 'BLANK)) ;jump move
+                (if (equal? (get-state board (jumpedspace i (+ i 2)) (jumpedspace j (+ j 2))) 'P1)
+                    (begin (move game i j (+ i 2) (+ j 2)) void)
+                    void))
+               
+               ((and (> i 0) (> (- i 2) 0) (< j 6)(equal? (get-state board (- i 2) (+ j 2)) 'BLANK)) ;jump move
+                (if (equal? (get-state board (jumpedspace i (- i 2)) (jumpedspace j (+ j 2))) 'P1)
+                    (begin (move game i j (- i 2) (+ j 2)) void)
+                 void))
+
+               ((and (< i 8)(< j 8)(equal? (get-state board (+ i 1) (+ j 1)) 'BLANK)) ;reg move
+                (begin (move game i j (+ i 1) (+ j 1))))
+               
+               ((and (> i 0)(< j 8)(equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move
+                (begin (move game i j (- i 1) (+ j 1))))
+               
+              
+               (else void)))
+            (else void))
+          )))
+
+
+
+
+;;;;end of new stuff
+
+;;;; Advanced AI Outline
+(define (ai-moves2 board difficulty)
+     ;;((= p1turn 1)(error "wrong piece, it's player one's turn!"))
+     ;;((equal? difficulty easy)
+      (do ((i 0 (+ i 1))) ((= i 7))
+        (do ((j 0 (+ j 1))) ((= j 7))
+          (cond
+            ((equal? (get-state board i j) 'P2)
+             (cond
+
+               ((and (< i 8) (< (+ i 2) 8) (< j 6)(equal? (get-state board (+ i 2) (+ j 2)) 'BLANK)) ;jump move
+                (if (equal? (get-state board (jumpedspace i (+ i 2)) (jumpedspace j (+ j 2))) 'P1)
+                    (begin (move game i j (+ i 2) (+ j 2)) void)
+                    void))
+               
+               ((and (> i 0) (> (- i 2) 0) (< j 6)(equal? (get-state board (- i 2) (+ j 2)) 'BLANK)) ;jump move
+                (if (equal? (get-state board (jumpedspace i (- i 2)) (jumpedspace j (+ j 2))) 'P1)
+                    (begin (move game i j (- i 2) (+ j 2)) void)
+                 void))
+
+               ((and (< i 8)(< j 8)(equal? (get-state board (+ i 1) (+ j 1)) 'BLANK)) ;reg move
+                (begin (move game i j (+ i 1) (+ j 1))))
+               
+               ((and (> i 0)(< j 8)(equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move
+                (begin (move game i j (- i 1) (+ j 1))))
+               
+              
+               (else void)))
+            (else void))
+          )))
+
+
+
+;;;;this creates the game
 (define game (make-game))
 (draw-board (get-board game))
