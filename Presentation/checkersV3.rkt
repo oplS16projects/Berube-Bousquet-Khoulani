@@ -94,7 +94,7 @@
     ((or (> start-x 7) (> start-y 7) (> end-x 7) (> end-y 7) (< start-x 0) (< start-y 0) (< end-x 0) (< end-y 0)) (error "invalid coordinates"))
     ((and (= p1turn 1) (not (equal? (get-state board start-x start-y) 'P1))) (error "wrong piece, it's player one's turn!"))
     ((and (= p1turn 0) (not (equal? (get-state board start-x start-y) 'P2))) (error "wrong piece, it's player two's turn!"))
-    ((not (equal? (get-state board end-x end-y) 'BLANK)) (error "destination is not a blank space"))
+    ((not (equal? (get-state board end-x end-y) 'BLANK))  (error "destination is not a blank space"))
     (else void))
 
   (cond ((and (= (abs (- start-x end-x)) 1) (= (abs (- start-y end-y)) 1)) ;this is a regular move to a blank space
@@ -119,71 +119,34 @@
         (else void))
 
   (if (= p1turn 1) (set! p1turn 0) (set! p1turn 1)) ;change turns
+
+  (if (equal? (p1-winner board) #f) ;; all P2 pieces are gone, P1 wins
+      (display "\nPlayer 1 is the Winner!")
+      void)
+  (if (equal? (p2-winner board) #f) ;; all P1 pieces are gone, P2 wins
+      (display "\nPlayer 2 is the Winner!")
+      void)
   
   (draw-board board))
 
 
 ;;new stuff
 
-(define (ai-move2 board difficulty)
-     ;;((= p1turn 1)(error "wrong piece, it's player one's turn!"))
-     ;;((equal? difficulty easy)
-      (do ((i 0 (+ i 1))) ((= i 8))
-        (do ((j 0 (+ j 1))) ((= j 8))
-          (begin (display "i is ")
-                 (display i)
-                 (display " j is ")
-                 (display j)
-                 (display "\n")
-
-                          
-          (cond
-            ((equal? (get-state board i j) 'P2)
-             (cond
-
-               ((and (< i 8)
-                     (< (+ i 2) 8)
-                     (< j 6)
-                     (equal? (get-state board (+ i 2) (+ j 2)) 'BLANK)) ;jump move
-                     (if (equal? (get-state board (jumpedspace i (+ i 2)) (jumpedspace j (+ j 2))) 'P1)
-                         (list i j (+ i 2) (+ j 2))
-                         void))
-                     
-               ((and (> i 0)
-                     (> (- i 2) 0)
-                     (< j 6)
-                     (equal? (get-state board (- i 2) (+ j 2)) 'BLANK)) ;jump move
-                     (if (equal? (get-state board (jumpedspace i (- i 2)) (jumpedspace j (+ j 2))) 'P1)
-                         (list i j (- i 2) (+ j 2))
-                         void))
-
-               ((and (< i 8)
-                     (< j 8)
-                     (equal? (get-state board (+ i 1) (+ j 1)) 'BLANK)) ;reg move
-                (list i j (+ i 1) (+ j 1))
-                void)
-               
-               ((and (> i 0)
-                     (< j 8)
-                     (equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move
-                (list i j (- i 1) (+ j 1))
-                void)
-               (else "no move"))))))))
-
-;;;; break, Fred's changes above^
-
 (define (ai-move-easy board)
+  ;; procedure will iterate thru game board for pieces belonging to the AI (Player 2)
+  ;; and will then check the board for moves that are available to that piece
+  
   ;; for/or breaks if any non-false expression is returned
   ;; the return of a #f causes the loop to continue
   (for/or ([i (in-range 8)])
-    (begin
-          (display "entering first loop...")
-          (display i)(display " "))
+;    (begin
+;          (display "entering first loop...")
+;          (display i)(display " "))
     (for/or ([j (in-range 8)])
-      (display "entering second loop...")
-          (begin
-            (display i)(display " ")
-            (display j)(display " "))
+;      (display "entering second loop...")
+;          (begin
+;            (display i)(display " ")
+;            (display j)(display " "))
       (cond
             ((equal? (get-state board i j) 'P2)
              (cond
@@ -193,107 +156,64 @@
                      (< j 6)
                      (equal? (get-state board (+ i 2) (+ j 2)) 'BLANK)) ;jump move right, 1st case
                 (if (equal? (get-state board (jumpedspace i (+ i 2)) (jumpedspace j (+ j 2))) 'P1)
-                    (begin (move game i j (+ i 2) (+ j 2))
-                           (display "tripped 1st case...")
-                           (display i)(display " ")
-                           (display j)(display " "))
+;                    (begin (move game i j (+ i 2) (+ j 2))
+;                           (display "tripped 1st case...")
+;                           (display i)(display " ")
+;                           (display j)(display " "))
+                    (move game i j (+ i 2) (+ j 2))
                     #f))
                
-               ((and (> i 0)
+               ((and (> i 1);; changed from 0
                      (> (- i 2) 0)
                      (< j 6)
                      (equal? (get-state board (- i 2) (+ j 2)) 'BLANK)) ;jump move left, 2nd case
                 (if (equal? (get-state board (jumpedspace i (- i 2)) (jumpedspace j (+ j 2))) 'P1)
-                    (begin (move game i j (- i 2) (+ j 2))
-                           (display "tripped 2nd case...")
-                           (display i)(display " ")
-                           (display j)(display " "))
+;                    (begin (move game i j (- i 2) (+ j 2))
+;                           (display "tripped 2nd case...")
+;                           (display i)(display " ")
+;                           (display j)(display " "))
+                    (move game i j (- i 2) (+ j 2))
                     #f))
 
-               ((and (< i 8)
-                     (< j 8)
+               ((and (< i 7)
+                     (< j 7)
                      (equal? (get-state board (+ i 1) (+ j 1)) 'BLANK)) ;reg move right, 3rd case
-                (begin (move game i j (+ i 1) (+ j 1))
-                (display "tripped 3rd case...")
-                (display i)(display " ")
-                (display j)(display " ")))
+;                (begin (move game i j (+ i 1) (+ j 1))
+;                (display "tripped 3rd case...")
+;                (display i)(display " ")
+;                (display j)(display " "))
+                (move game i j (+ i 1) (+ j 1)))
                
                ((and (> i 0)
                      (< j 7)
                      (equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move left, 4th case
-                (begin (move game i j (- i 1) (+ j 1)))
-                (display "tripped 4th case...")
-                (display i)(display " ")
-                (display j)(display " "))
+;                (begin (move game i j (- i 1) (+ j 1))
+;                (display "tripped 4th case...")
+;                (display i)(display " ")
+;                (display j)(display " "))
+                (move game i j (- i 1) (+ j 1)))
                
               
                (else #f)))
        (else #f)))))
-             
 
-;;;; break, new AI proc with for/or above^
-
-(define (ai-move board difficulty)
-     ;;((= p1turn 1)(error "wrong piece, it's player one's turn!"))
-     ;;((equal? difficulty easy)
-      (do ((i 0 (+ i 1))) ((= i 8))
-        (begin
-          (display "entering first loop...")
-          (display i)(display " "))
-        (do ((j 0 (+ j 1))) ((= j 8))
-          (display "entering second loop...")
-          (begin
-            (display i)(display " ")
-            (display j)(display " "))
-          (cond
-            ((equal? (get-state board i j) 'P2)
-             (cond
-
-               ((and (< i 8)
-                     (< (+ i 2) 8)
-                     (< j 6)
-                     (equal? (get-state board (+ i 2) (+ j 2)) 'BLANK)) ;jump move right, 1st case
-                (if (equal? (get-state board (jumpedspace i (+ i 2)) (jumpedspace j (+ j 2))) 'P1)
-                    (begin (move game i j (+ i 2) (+ j 2))
-                           (display "tripped 1st case...")
-                           (display i)(display " ")
-                           (display j)(display " "))
-                    void))
-               
-               ((and (> i 0)
-                     (> (- i 2) 0)
-                     (< j 6)
-                     (equal? (get-state board (- i 2) (+ j 2)) 'BLANK)) ;jump move left, 2nd case
-                (if (equal? (get-state board (jumpedspace i (- i 2)) (jumpedspace j (+ j 2))) 'P1)
-                    (begin (move game i j (- i 2) (+ j 2))
-                           (display "tripped 2nd case...")
-                           (display i)(display " ")
-                           (display j)(display " "))
-                 void))
-
-               ((and (< i 8)
-                     (< j 8)
-                     (equal? (get-state board (+ i 1) (+ j 1)) 'BLANK)) ;reg move right, 3rd case
-                (begin (move game i j (+ i 1) (+ j 1))
-                (display "tripped 3rd case...")
-                (display i)(display " ")
-                (display j)(display " ")))
-               
-               ((and (> i 0)
-                     (< j 7)
-                     (equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move left, 4th case
-                (begin (move game i j (- i 1) (+ j 1)))
-                (display "tripped 4th case...")
-                (display i)(display " ")
-                (display j)(display " "))
-               
-              
-               (else void)))
-            (else void))
-          )))
-
-;;end of new stuff
-
+(define (p1-winner board) 
+  (for/or ([i (in-range 8)])
+    (for/or ([j (in-range 8)])
+      (cond
+        [(equal? (get-state board i j) 'P2)
+         #t]
+        [else
+         #f]))))
+         
+(define (p2-winner board) 
+  (for/or ([i (in-range 8)])
+    (for/or ([j (in-range 8)])
+      (cond
+        [(equal? (get-state board i j) 'P1)
+         #t]
+        [else
+         #f]))))
 
 ;this creates the game
 (define game (make-game))
