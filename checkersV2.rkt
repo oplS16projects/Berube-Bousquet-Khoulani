@@ -210,8 +210,8 @@
 (define (ai-moves2 board difficulty)
      ;;((= p1turn 1)(error "wrong piece, it's player one's turn!"))
      ;;((equal? difficulty easy)
-      (do ((i 0 (+ i 1))) ((= i 7))
-        (do ((j 0 (+ j 1))) ((= j 7))
+      (do ((i 7 (- i 1))) ((= i 0))
+        (do ((j 7 (- j 1))) ((= j 0))
           (cond
             ((equal? (get-state board i j) 'P2)
              (cond
