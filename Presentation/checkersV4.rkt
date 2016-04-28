@@ -1,6 +1,17 @@
 #lang racket/base
 (require 2htdp/image)
 
+<<<<<<< Updated upstream
+=======
+;to start the game
+;(define game (make-game))
+;(draw-board (get-board game))
+
+;example of valid move - (move game 3 5 4 4)
+
+;server reference
+;(eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split "move game 3 5 4 4")))
+>>>>>>> Stashed changes
 
 
 ;make the board, each symbol will be used to tell the library what to draw
@@ -17,7 +28,7 @@
    (list->vector '(OFF P1 OFF P1 OFF P1 OFF P1))))
 
 ;determines if its p1's turn (value = 1), or p2/computer's turn (value = 0)
-(define p1turn 1) 
+(define p1turn 1)
 
 ;returns the state of the current position on the board based off (x,y) coordinate I.E. blank space, p1 occupied space, etc.
 (define (get-state board x y)
@@ -76,14 +87,19 @@
    (printf "\n")))
 
 ;used to check for jump moves
-(define (jumpedspace start end) 
+(define (jumpedspace start end)
   (/ (+ start end) 2))
 
 ;handles moves - first checks if valid, then determines if its a jump or regular move
 (define (move game start-x start-y end-x end-y)
   (define board (get-board game))
   (cond ;initial error checking
-    ((or (> start-x 7) (> start-y 7) (> end-x 7) (> end-y 7) (< start-x 0) (< start-y 0) (< end-x 0) (< end-y 0)) (error "invalid coordinates"))
+    ((or (> start-x 7) (> start-y 7) (> end-x 7) (> end-y 7) (< start-x 0) (< start-y 0) (< end-x 0) (< end-y 0))
+      (cond
+        ((and (= p1turn 0) (not (equal? (get-state board start-x start-y) 'P2))) (error "Invalid move, and it's also player two's turn!"))
+        ((and (= p1turn 1) (not (equal? (get-state board start-x start-y) 'P1))) (error "Invalid move, and it's also player one's turn!"))
+        (else (error "those are invalid coordinates!!"))
+      ))
     ((and (= p1turn 1) (not (equal? (get-state board start-x start-y) 'P1))) (error "wrong piece, it's player one's turn!"))
     ((and (= p1turn 0) (not (equal? (get-state board start-x start-y) 'P2))) (error "wrong piece, it's player two's turn!"))
     ((not (equal? (get-state board end-x end-y) 'BLANK))  (error "destination is not a blank space"))
@@ -106,7 +122,7 @@
                 (set-state board start-x start-y 'BLANK))
                (else (error "invalid jump move"))))
          (else void))
-  
+
   (cond ((or (> (abs (- start-x end-x)) 2) (> (abs (- start-y end-y)) 2)) (error "invalid move")) ;you can't move a checkers piece this far in one move
         (else void))
 
@@ -118,7 +134,7 @@
   (if (equal? (p2-winner board) #f) ;; all P1 pieces are gone, P2 wins
       (display "\nPlayer 2 is the Winner!")
       void)
-  
+
   (draw-board board))
 
 
@@ -127,7 +143,7 @@
 (define (ai-move-easy board)
   ;; procedure will iterate thru game board for pieces belonging to the AI (Player 2)
   ;; and will then check the board for moves that are available to that piece
-  
+
   ;; for/or breaks if any non-false expression is returned
   ;; the return of a #f causes the loop to continue
   (for/or ([i (in-range 8)])
@@ -154,7 +170,7 @@
 ;                           (display j)(display " "))
                     (move game i j (+ i 2) (+ j 2))
                     #f))
-               
+
                ((and (> i 1);; changed from 0
                      (>= (- i 2) 0)
                      (< j 6)
@@ -175,7 +191,7 @@
 ;                (display i)(display " ")
 ;                (display j)(display " "))
                 (move game i j (+ i 1) (+ j 1)))
-               
+
                ((and (> i 0)
                      (< j 7)
                      (equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move left, 4th case
@@ -184,15 +200,15 @@
 ;                (display i)(display " ")
 ;                (display j)(display " "))
                 (move game i j (- i 1) (+ j 1)))
-               
-              
+
+
                (else #f)))
        (else #f)))))
 
 (define (ai-move-hard board)
   ;; procedure will iterate thru game board for pieces belonging to the AI (Player 2)
   ;; and will then check the board for moves that are available to that piece
-  
+
   ;; for/or breaks if any non-false expression is returned
   ;; the return of a #f causes the loop to continue
   (for/or ([i (in-range 7 -1 -1)])
@@ -219,7 +235,7 @@
 ;                           (display j)(display " "))
                     (move game i j (+ i 2) (+ j 2))
                     #f))
-               
+
                ((and (> i 1);; changed from 0
                      (> (- i 2) 0)
                      (< j 6)
@@ -240,7 +256,7 @@
 ;                (display i)(display " ")
 ;                (display j)(display " "))
                 (move game i j (+ i 1) (+ j 1)))
-               
+
                ((and (> i 0)
                      (< j 7)
                      (equal? (get-state board (- i 1) (+ j 1)) 'BLANK)) ;reg move left, 4th case
@@ -249,22 +265,22 @@
 ;                (display i)(display " ")
 ;                (display j)(display " "))
                 (move game i j (- i 1) (+ j 1)))
-               
-              
+
+
                (else #f)))
        (else #f)))))
 
 (define (p1-winner board)      ;;returns true if P2 pieces still exist, meaning P1 has not won yet
-  (for/or ([i (in-range 8)])   ;;(written this way because for/or will terminate when returned #t, 
+  (for/or ([i (in-range 8)])   ;;(written this way because for/or will terminate when returned #t,
     (for/or ([j (in-range 8)]) ;;so that the search will stop when the first P2 piece is found.
       (cond                    ;;if #f is returned then there are no P2 pieces and P1 has won.
         [(equal? (get-state board i j) 'P2)
          #t]
         [else
          #f]))))
-         
+
 (define (p2-winner board)      ;;returns true if P1 pieces still exist, meaning P2 has not won yet
-  (for/or ([i (in-range 8)])   ;;(written this way because for/or will terminate when returned #t, 
+  (for/or ([i (in-range 8)])   ;;(written this way because for/or will terminate when returned #t,
     (for/or ([j (in-range 8)]) ;;so that the search will stop when the first P1 piece is found.
       (cond                    ;;if #f is returned then there are no P1 pieces and P2 has won.
         [(equal? (get-state board i j) 'P1)
