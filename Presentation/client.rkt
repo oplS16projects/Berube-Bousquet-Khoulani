@@ -123,7 +123,7 @@
 (define game (make-game))
 (draw-board (get-board game))
 
-(define-namespace-anchor anc) ;used to aid evaluation of server input that client receives
+(define-namespace-anchor anc) ;used to aid evaluation of server input that the client receives
 (define ns (namespace-anchor->namespace anc))
 
 ;send move to server
@@ -145,13 +145,9 @@
 ;the loop is to keep the client listening for input without getting hung up 
 (define (loop)
   (define temp (read in))
-  (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp))) 
+  (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp))) ;evaluates server's move
   (loop))
   (define t (thread loop))
   (lambda ()
     (kill-thread t)))
 
-
-
-;(close-input-port in)
-;(close-output-port out)
