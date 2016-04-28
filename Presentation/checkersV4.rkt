@@ -111,8 +111,13 @@
                ((and (equal? (get-state board x y) 'P1)
                      (or (equal? (get-state board (+ 1 start-x) (- start-y 1)) 'P2) (equal? (get-state board (- start-x 1) (- start-y 1)) 'P2))
                      (or (equal? (get-state board (+ 2 start-x) (- start-y 2)) 'BLANK) (equal? (get-state board (- start-x 2) (- start-y 2)) 'BLANK)))
-               (error "you must make a jump move!"))
+               (error "player one must make a jump move!"))
+               ((and (equal? (get-state board x y) 'P2)
+                     (or (equal? (get-state board (+ 1 start-x) (- start-y 1)) 'P1) (equal? (get-state board (- start-x 1) (- start-y 1)) 'P1))
+                     (or (equal? (get-state board (+ 2 start-x) (- start-y 2)) 'BLANK) (equal? (get-state board (- start-x 2) (- start-y 2)) 'BLANK)))
+               (error "player two must make a jump move!"))
                (else void))))
+         
           
          (if (= p1turn 1) (set-state board end-x end-y 'P1)
              (set-state board end-x end-y 'P2))
