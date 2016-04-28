@@ -2,16 +2,6 @@
 
 (require 2htdp/image)
 
-;to start the game
-;(define game (make-game))
-;(draw-board (get-board game))
-
-;example of valid move - (move game 3 5 4 4)
-
-;server reference
-;(eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split "move game 3 5 4 4"))) 
-
-
 ;make the board, each symbol will be used to tell the library what to draw
 ;(i.e. BLANK = draw empty red space, OFF = draw black space, P1/P2 = player occupied space)
 (define (make-board)
@@ -118,7 +108,6 @@
   
   (cond ((or (> (abs (- start-x end-x)) 2) (> (abs (- start-y end-y)) 2)) (error "invalid move")) ;you can't move a checkers piece this far in one move
         (else void))
-  ;sadf
 
   (if (= p1turn 1) (set! p1turn 0) (set! p1turn 1)) ;change turns
   
@@ -130,15 +119,13 @@
 (define game (make-game))
 (draw-board (get-board game))
 
-(define-namespace-anchor anc)
+(define-namespace-anchor anc) ;used to aid evaluation of server input that client receives
 (define ns (namespace-anchor->namespace anc))
 
-;(define-values (in out) (tcp-connect "localhost" 9876))
-
+;send move to server
 (define (send-move x1 y1 x2 y2)
   (define-values (in out) (tcp-connect "localhost" 9876))
 
- ; (move game x1 y1 x2 y2)
   
   (write (string-append "move game "
                  (number->string x1)
@@ -149,8 +136,9 @@
                  " "
                  (number->string y2)) out)
 
-(flush-output out)
+(flush-output out) ; sends move to server (i.e. "move game 3 5 4 4")
 
+;the loop is to keep the client listening for input without getting hung up 
 (define (loop)
   (define temp (read in))
   (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp))) 
