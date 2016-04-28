@@ -136,29 +136,29 @@
 
 
 
-
+;open a server
 (define (serve port-no)
   (define listener (tcp-listen port-no 5 #f))
-  (define (loop)
+  (define (loop) ;loop so that the server stays open and can accept multiple connections
     (accept-and-handle listener)
       (loop))
-  (define t (thread loop))
+  (define t (thread loop)) ;kill the thread to successfully close the server when you're finished
   (lambda ()
     (kill-thread t)
     (tcp-close listener)))
 
-(define (accept-and-handle listener)
+(define (accept-and-handle listener) ;used to aid in handling input/output
   (define-values (in out) (tcp-accept listener))
   (thread
    (lambda ()
      (handle in out))))
 
-(define (handle in out) 
+(define (handle in out) ;handle input output
   (define temp (read in))
-  (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp))ns)
+  (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp))ns) ;evaluate client input (their move)
   (define temp2 (read-line (current-input-port) 'any))
-  (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp2))ns)
-  (write temp2 out)
+  (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp2))ns) ;evaluate server input (your move)
+  (write temp2 out) ;send move to client for evaluation
   (flush-output out)
   )
 (serve 9876)
