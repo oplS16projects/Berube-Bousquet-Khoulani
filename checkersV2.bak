@@ -237,7 +237,7 @@
             (else void))
           )))
 
-;sadf
+
 
 ;;;;this creates the game
 (define game (make-game))
