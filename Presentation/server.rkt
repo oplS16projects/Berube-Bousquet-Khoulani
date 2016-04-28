@@ -12,6 +12,9 @@
 ;  still providing the same error-checking on the server's moves, but for the demo
 ;  everything will still run efficiently as long as the server player abides by the rules.
 
+;the server  doesn't have ai code. The purpose of this file isn't efficiency in running the checkers game,
+;but to demonstrate human vs human gameplay over a server. For the most efficient code in running a checkers game
+;please see checkersV4.rkt or any later versions
 
 
 ;make the board, each symbol will be used to tell the library what to draw
