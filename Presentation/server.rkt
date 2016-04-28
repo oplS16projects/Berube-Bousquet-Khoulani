@@ -5,16 +5,29 @@
 
 ;WARNING THIS SERVER FILE IS SIGNIFICANTLY ALTERED IN ORDER TO DEMONSTRATE
 ;A WORKING HUMAN TO HUMAN GAME ON TWO MACHINES
-;  the error-checking for the server's moves have been removed. Although this allows the server
-;  player to cheat, we decided it would be best to use this version anyways
-;  as it will be most efficient in displaying a human vs human game on two machines.
-;  If we had a few more days we probably could implement it effectively while
-;  still providing the same error-checking on the server's moves, but for the demo
-;  everything will still run efficiently as long as the server player abides by the rules.
+;The error-checking for the server's moves have been removed. Although this allows the server-player to cheat,
+;we designed it this way as it's the most efficient manner to present human v human gameplay over a server (we
+;currently have a server bug where it tries to send the same move twice and throws an error, so we changed the
+;errors to voids so that the demo will run more smoothly).
+;With a few more days we could have it running properly, but we chose to design it in this manner to make the 
+;demo more efficient.
 
-;the server  doesn't have ai code. The purpose of this file isn't efficiency in running the checkers game,
+;The server also doesn't have ai code. The purpose of this file isn't efficiency in running the checkers game,
 ;but to demonstrate human vs human gameplay over a server. For the most efficient code in running a checkers game
 ;please see checkersV4.rkt or any later versions
+
+;HOW TO RUN
+;it's important that you type server code as seen below, as any bad input will break the game and you will have to restart.
+;As stated above, this file is only meant to demonstrate gameplay over a server. For our most efficient use of implementing
+;the checkers game, please see checkersV4.rkt or any later versions.
+
+;client: (move game 3 5 4 4)
+;server: move game 2 2 3 3
+;client: (move game 4 4 2 2)
+;server: move game 1 1 3 3
+
+
+
 
 
 ;make the board, each symbol will be used to tell the library what to draw
