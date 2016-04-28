@@ -105,18 +105,14 @@
         
   (cond ((and (= (abs (- start-x end-x)) 1) (= (abs (- start-y end-y)) 1)) ;this is a regular move to a blank space
 
-         (for/or ([x (in-range 8)])
-           (for/or ([y (in-range 8)])
-             ( write"hi?")
+         (for ([x (in-range 8)])
+           (for ([y (in-range 8)])
              (cond
                ((and (equal? (get-state board x y) 'P1)
                      (or (equal? (get-state board (+ 1 start-x) (- start-y 1)) 'P2) (equal? (get-state board (- start-x 1) (- start-y 1)) 'P2))
                      (or (equal? (get-state board (+ 2 start-x) (- start-y 2)) 'BLANK) (equal? (get-state board (- start-x 2) (- start-y 2)) 'BLANK)))
                (error "you must make a jump move!"))
                (else void))))
-               
-                   
-         
           
          (if (= p1turn 1) (set-state board end-x end-y 'P1)
              (set-state board end-x end-y 'P2))
