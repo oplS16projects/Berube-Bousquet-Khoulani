@@ -7,7 +7,7 @@ Sean Berube
 
 Samir Khoulani
 
-Brendan Bousqet
+Brendan Bousquet
 
 ##Overview
 Checker Master is a checkers game implemented in Racket. The game, complete with a custom UI, is able to handle 3 modes of gameplay: Human v. Human, Human v. Easy AI, Human v. Hard AI.
