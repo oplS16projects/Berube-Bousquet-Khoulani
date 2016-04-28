@@ -2,6 +2,10 @@
 
 (require 2htdp/image)
 
+;this client  doesn't have ai code, but has tcp sockets to send its moves to the server 
+;the main purpose of this file is to demonstrate human vs human gameplay on a server
+
+
 ;make the board, each symbol will be used to tell the library what to draw
 ;(i.e. BLANK = draw empty red space, OFF = draw black space, P1/P2 = player occupied space)
 (define (make-board)
