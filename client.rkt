@@ -1,17 +1,15 @@
 #lang racket
-(require racket/tcp)
+
 (require 2htdp/image)
 
+;to start the game
+;(define game (make-game))
+;(draw-board (get-board game))
 
-;WARNING THIS SERVER FILE IS SIGNIFICANTLY ALTERED IN ORDER TO DEMONSTRATE
-;A WORKING HUMAN TO HUMAN GAME ON TWO MACHINES
-;  the error-checking for the server's moves have been removed. Although this allows the server
-;  player to cheat, we decided it would be best to use this version anyways
-;  as it will be most efficient in displaying a human vs human game on two machines
-;  if we had a few more days we probably could implement it effectively while
-;  still providing the same error-checking on the server's moves, but for the demo
-;  everything will still run efficiently as long as the server player abides by the rules.
+;example of valid move - (move game 3 5 4 4)
 
+;server reference
+;(eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split "move game 3 5 4 4"))) 
 
 
 ;make the board, each symbol will be used to tell the library what to draw
@@ -95,7 +93,7 @@
   (define board (get-board game))
   (cond ;initial error checking
     ((or (> start-x 7) (> start-y 7) (> end-x 7) (> end-y 7) (< start-x 0) (< start-y 0) (< end-x 0) (< end-y 0)) (error "invalid coordinates"))
-    ((and (= p1turn 1) (not (equal? (get-state board start-x start-y) 'P1))) (set! p1turn 0));(error "wrong piece, it's player one's turn!"))
+    ((and (= p1turn 1) (not (equal? (get-state board start-x start-y) 'P1))) (error "wrong piece, it's player one's turn!"))
     ((and (= p1turn 0) (not (equal? (get-state board start-x start-y) 'P2))) (error "wrong piece, it's player two's turn!"))
     ((not (equal? (get-state board end-x end-y) 'BLANK)) (error "destination is not a blank space"))
     (else void))
@@ -115,15 +113,17 @@
                 (set-state board (jumpedspace start-x end-x) (jumpedspace start-y end-y) 'BLANK)
                 (set-state board end-x end-y 'P2)
                 (set-state board start-x start-y 'BLANK))
-               (else void))) ;(error "invalid jump move"))))
+               (else (error "invalid jump move"))))
          (else void))
   
   (cond ((or (> (abs (- start-x end-x)) 2) (> (abs (- start-y end-y)) 2)) (error "invalid move")) ;you can't move a checkers piece this far in one move
         (else void))
+  ;sadf
 
   (if (= p1turn 1) (set! p1turn 0) (set! p1turn 1)) ;change turns
   
-  (draw-board board))
+  (draw-board board)
+  (send-move start-x start-y end-x end-y))
 
 
 ;this creates the game
@@ -133,38 +133,33 @@
 (define-namespace-anchor anc)
 (define ns (namespace-anchor->namespace anc))
 
+;(define-values (in out) (tcp-connect "localhost" 9876))
 
+(define (send-move x1 y1 x2 y2)
+  (define-values (in out) (tcp-connect "localhost" 9876))
 
+ ; (move game x1 y1 x2 y2)
+  
+  (write (string-append "move game "
+                 (number->string x1)
+                 " "
+                 (number->string y1)
+                 " "
+                 (number->string x2)
+                 " "
+                 (number->string y2)) out)
 
+(flush-output out)
 
-(define (serve port-no)
-  (define listener (tcp-listen port-no 5 #f))
-  (define (loop)
-    (accept-and-handle listener)
-      (loop))
+(define (loop)
+  (define temp (read in))
+  (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp))) 
+  (loop))
   (define t (thread loop))
   (lambda ()
-    (kill-thread t)
-    (tcp-close listener)))
-
-(define (accept-and-handle listener)
-  (define-values (in out) (tcp-accept listener))
-  (thread
-   (lambda ()
-     (handle in out))))
-
-(define (handle in out) 
-  (define temp (read in))
-  (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp))ns)
-  (define temp2 (read-line (current-input-port) 'any))
-  (eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split temp2))ns)
-  (write temp2 out)
-  (flush-output out)
-  )
-(serve 9876)
-
- 
+    (kill-thread t)))
 
 
 
-
+;(close-input-port in)
+;(close-output-port out)
