@@ -7,8 +7,8 @@
 ;A WORKING HUMAN TO HUMAN GAME ON TWO MACHINES
 ;  the error-checking for the server's moves have been removed. Although this allows the server
 ;  player to cheat, we decided it would be best to use this version anyways
-;  as it will be most efficient in displaying a human vs human game on two machines
-;  if we had a few more days we probably could implement it effectively while
+;  as it will be most efficient in displaying a human vs human game on two machines.
+;  If we had a few more days we probably could implement it effectively while
 ;  still providing the same error-checking on the server's moves, but for the demo
 ;  everything will still run efficiently as long as the server player abides by the rules.
 
