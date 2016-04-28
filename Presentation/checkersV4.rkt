@@ -1,14 +1,6 @@
 #lang racket/base
 (require 2htdp/image)
 
-;to start the game
-;(define game (make-game))
-;(draw-board (get-board game))
-
-;example of valid move - (move game 3 5 4 4)
-
-;server reference
-;(eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split "move game 3 5 4 4"))) 
 
 
 ;make the board, each symbol will be used to tell the library what to draw
