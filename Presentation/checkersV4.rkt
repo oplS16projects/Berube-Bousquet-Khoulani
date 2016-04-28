@@ -1,8 +1,6 @@
 #lang racket/base
 (require 2htdp/image)
 
-<<<<<<< Updated upstream
-=======
 ;to start the game
 ;(define game (make-game))
 ;(draw-board (get-board game))
@@ -11,7 +9,6 @@
 
 ;server reference
 ;(eval (map (lambda (z) (if (string->number z) (string->number z) (string->symbol z))) (string-split "move game 3 5 4 4")))
->>>>>>> Stashed changes
 
 
 ;make the board, each symbol will be used to tell the library what to draw
@@ -105,7 +102,22 @@
     ((not (equal? (get-state board end-x end-y) 'BLANK))  (error "destination is not a blank space"))
     (else void))
 
+        
   (cond ((and (= (abs (- start-x end-x)) 1) (= (abs (- start-y end-y)) 1)) ;this is a regular move to a blank space
+
+         (for/or ([x (in-range 8)])
+           (for/or ([y (in-range 8)])
+             ( write"hi?")
+             (cond
+               ((and (equal? (get-state board x y) 'P1)
+                     (or (equal? (get-state board (+ 1 start-x) (- start-y 1)) 'P2) (equal? (get-state board (- start-x 1) (- start-y 1)) 'P2))
+                     (or (equal? (get-state board (+ 2 start-x) (- start-y 2)) 'BLANK) (equal? (get-state board (- start-x 2) (- start-y 2)) 'BLANK)))
+               (error "you must make a jump move!"))
+               (else void))))
+               
+                   
+         
+          
          (if (= p1turn 1) (set-state board end-x end-y 'P1)
              (set-state board end-x end-y 'P2))
          (set-state board start-x start-y 'BLANK))
