@@ -20,15 +20,18 @@ Here's a demonstration of how to display an image that's uploaded to this repo:
 
 ##Concepts Demonstrated
 Identify the OPL concepts demonstrated in your project. Be brief. A simple list and example is sufficient.
-* **Data abstraction** is used to provide access to the elements of the RSS feed.
-* The objects in the OpenGL world are represented with **recursive data structures.**
-* **Symbolic language processing techniques** are used in the parser.
+*Recursive Procedures
+**Our procedures for completing the moves on the board, tracking game winner status, and searching for AI moves all use the recursive strategy that is conducive to the Racket language.
 
 ##External Technology and Libraries
-Briefly describe the existing technology you utilized, and how you used it. Provide a link to that technology(ies).
+*2htdp/image
+*tcp
 
 ##Favorite Scheme Expressions
-####Mark (a team member)
+####Sean (a team member)
+####Brendan (a team member)
+####Samir (a team member)
+
 Each team member should identify a favorite expression or procedure, written by them, and explain what it does. Why is it your favorite? What OPL philosophy does it embody?
 Remember code looks something like this:
 ```scheme
@@ -49,6 +52,9 @@ This expression reads in a regular expression and elegantly matches it against a
 Although the server implementation is functional using localhost, it is our future plan to implement a multiplayer mode that can be played across two different computers over a TCP connection.
 
 #How to Download and Run
+
+To run locally download and run checkersV4.rkt from the repository.  Open the file in DrRacket and click 'Run'.  Follow the printed instructions within the REPL to play the game.
+
 You may want to link to your latest release for easy downloading by people (such as Mark).
 
 Include what file to run, what to do with that file, how to interact with the app when its running, etc.
