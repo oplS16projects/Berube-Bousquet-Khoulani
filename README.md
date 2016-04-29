@@ -17,12 +17,12 @@ Checker Master is a checkers game implemented in Racket. The game, complete with
 
 ##Concepts Demonstrated
 Identify the OPL concepts demonstrated in your project. Be brief. A simple list and example is sufficient.
-*Recursive Procedures
-**Our procedures for completing the moves on the board, tracking game winner status, and searching for AI moves all use the recursive strategy that is conducive to the Racket language.
+* Recursive Procedures
+* Our procedures for completing the moves on the board, tracking game winner status, and searching for AI moves all use the recursive strategy that is conducive to the Racket language.
 
 ##External Technology and Libraries
-*2htdp/image
-*tcp
+* 2htdp/image
+* tcp
 
 ##Favorite Scheme Expressions
 ####Sean (a team member)
