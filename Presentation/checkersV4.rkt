@@ -108,11 +108,11 @@
          (for ([x (in-range 8)])
            (for ([y (in-range 8)])
              (cond
-               ((and (equal? (get-state board x y) 'P1)
+               ((and (equal? (get-state board x y) 'P1) (>= start-x 2) (>= start-y 2) (>= start-x 5)
                      (or (equal? (get-state board (+ 1 start-x) (- start-y 1)) 'P2) (equal? (get-state board (- start-x 1) (- start-y 1)) 'P2))
                      (or (equal? (get-state board (+ 2 start-x) (- start-y 2)) 'BLANK) (equal? (get-state board (- start-x 2) (- start-y 2)) 'BLANK)))
                (error "player one must make a jump move!"))
-               ((and (equal? (get-state board x y) 'P2)
+               ((and (equal? (get-state board x y) 'P2) (>= start-x 2) (>= start-y 2) (>= start-x 5)
                      (or (equal? (get-state board (+ 1 start-x) (- start-y 1)) 'P1) (equal? (get-state board (- start-x 1) (- start-y 1)) 'P1))
                      (or (equal? (get-state board (+ 2 start-x) (- start-y 2)) 'BLANK) (equal? (get-state board (- start-x 2) (- start-y 2)) 'BLANK)))
                (error "player two must make a jump move!"))
@@ -170,8 +170,45 @@
 ;            (display j)(display " "))
       (cond
             ((equal? (get-state board i j) 'P2)
-             (cond
+             (cond  
 
+
+
+
+               ;checking if ai can jump down right
+               ((and (< i 8) 
+                     (< (+ i 2) 8)
+                     (< j 6)
+                     (>= i 1)
+                     (<= j 5)
+                     (equal? (get-state board (+ 1 i) (+ j 1)) 'P1))
+                (if (equal? (get-state board (+ 2 i) (+ 2 j)) 'BLANK)
+                    (move game i j (+ 2 i) (+ 2 j))
+                    #f))
+
+               
+               ;checking if ai can jump down left
+               ((and (< i 8) 
+                     (< (+ i 2) 8)
+                     (< j 6)
+                     (>= i 1)
+                     (<= j 5)
+                     (equal? (get-state board (- i 1) (+ j 1)) 'P1))
+                (if (equal? (get-state board (+ i 2) (+ 2 j)) 'BLANK)
+                    (move game i j (- i 2) (+ 2 j))
+                    #f))
+
+
+
+
+
+
+
+
+
+            
+
+               
                ((and (< i 8)
                      (< (+ i 2) 8)
                      (< j 6)
