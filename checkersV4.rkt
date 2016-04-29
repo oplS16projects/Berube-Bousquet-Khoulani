@@ -169,8 +169,6 @@
              (cond  
 
 
-
-
                ;checking if ai can jump down right
                ((and (< i 8) 
                      (< (+ i 2) 8)
@@ -182,7 +180,7 @@
                     (move game i j (+ 2 i) (+ 2 j))
                     #f))
 
-               
+           
                ;checking if ai can jump down left
                ((and (< i 8) 
                      (< (+ i 2) 8)
@@ -193,16 +191,6 @@
                 (if (equal? (get-state board (+ i 2) (+ 2 j)) 'BLANK)
                     (move game i j (- i 2) (+ 2 j))
                     #f))
-
-
-
-
-
-
-
-
-
-            
 
                
                ((and (< i 8)
