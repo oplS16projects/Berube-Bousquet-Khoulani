@@ -233,8 +233,7 @@
             ((equal? (get-state board i j) 'P2)
              (cond
 
-
-              
+          
                ;checking for double jumps
                ((and (< i 8) 
                      (< (+ i 2) 8)
@@ -247,7 +246,6 @@
                     #f))
 
 
-              
                ;checking if ai can jump down right
                ((and (< i 8) 
                      (< (+ i 2) 8)
