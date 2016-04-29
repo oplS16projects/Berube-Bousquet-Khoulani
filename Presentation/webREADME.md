@@ -17,7 +17,7 @@ Checker Master is a checkers game implemented in Racket. The game, complete with
 (insert a screenshot here. You may opt to get rid of the title for it. You need at least one screenshot. Make it actually appear here, don't just add a link.)
 
 Here's a demonstration of how to display an image that's uploaded to this repo:
-![screenshot showing env diagram](withdraw.png)
+![game-board](https://github.com/oplS16projects/Berube-Bousquet-Khoulani/blob/master/checkerboard.PNG)
 
 ##Concepts Demonstrated
 Identify the OPL concepts demonstrated in your project. Be brief. A simple list and example is sufficient.
