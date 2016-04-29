@@ -245,7 +245,7 @@
                 (if (and (equal? (get-state board (- i 2) (+ 2 j)) 'BLANK)
                          (equal? (get-state board i (+ j 4)) 'BLANK))
                     ((lambda args (set-state board i j 'BLANK)
-                       (set-state board (- i 1) (+ j 1) 'BLANK) ;first piece to be jumped
+                       (set-state board (- i 1) (+ j 1) 'BLANK) ; first piece to be jumped
                        (set-state board (- i 1) (+ j 3) 'BLANK) ; second piece to be jumped
                        (set-state board i (+ j 4) 'P2)))        ; where AI lands after jumping two pieces
                     #f))
@@ -261,11 +261,28 @@
                 (if (and (equal? (get-state board (+ i 2) (+ 2 j)) 'BLANK)
                          (equal? (get-state board i (+ j 4)) 'BLANK))
                     ((lambda args (set-state board i j 'BLANK)
-                       (set-state board (+ i 1) (+ j 1) 'BLANK) ;first piece to be jumped
+                       (set-state board (+ i 1) (+ j 1) 'BLANK) ; first piece to be jumped
+                       (set-state board (+ i 3) (+ j 3) 'BLANK) ; second piece to be jumped
+                       (set-state board (+ i 4) (+ j 4) 'P2)))        ; where AI lands after jumping two pieces
+                    #f))
+
+               ;checking for double jump down diag-right possibility
+               ((and (< i 8) 
+                     (< (+ i 2) 8)
+                     (< j 6)
+                     (>= i 1)
+                     (<= j 5)
+                     (equal? (get-state board (+ i 1) (+ j 1)) 'P1)
+                     (equal? (get-state board (+ i 3) (+ j 3)) 'P1))
+                (if (and (equal? (get-state board (+ i 2) (+ j 2)) 'BLANK)
+                         (equal? (get-state board (+ i 4) (+ j 4)) 'BLANK))
+                    ((lambda args (set-state board i j 'BLANK)
+                       (set-state board (+ i 2) (+ j 2) 'BLANK) ; first piece to be jumped
                        (set-state board (+ i 1) (+ j 3) 'BLANK) ; second piece to be jumped
                        (set-state board i (+ j 4) 'P2)))        ; where AI lands after jumping two pieces
                     #f))
 
+               
 
                ;checking if ai can jump down right
                ((and (< i 8) 
