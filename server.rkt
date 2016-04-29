@@ -19,7 +19,7 @@
 ;This server also doesn't have ai code. 
 
 ;HOW TO RUN
-;it's important that you type server code as seen below, as any bad input will break the game and you will have to restart
+;it's important that you type server moves as seen below, as any bad input will break the game and you will have to restart
 ;(since we got rid of the error-checking in this file).
 ;As stated above, this file is only meant to demonstrate gameplay over a server. For our most efficient use of implementing
 ;the checkers game, please see checkersV4.rkt or later versions.
