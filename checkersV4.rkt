@@ -234,7 +234,18 @@
              (cond
 
           
-               ;checking for double jumps
+               ;checking for double jump down right
+               ((and (< i 8) 
+                     (< (+ i 2) 8)
+                     (< j 6)
+                     (>= i 1)
+                     (<= j 5)
+                     (equal? (get-state board (+ 1 i) (+ j 1)) 'P1))
+                (if (and (equal? (get-state board (+ 2 i) (+ 2 j)) 'BLANK) )
+                    (move game i j (+ 2 i) (+ 2 j))
+                    #f))
+
+                ;checking for double jump down left
                ((and (< i 8) 
                      (< (+ i 2) 8)
                      (< j 6)
