@@ -1,4 +1,4 @@
-# FP7- Checker Master
+#Checker Master
 
 ##Authors
 
