@@ -14,9 +14,7 @@ Brendan Bousquet
 Checker Master is a checkers game implemented in Racket. The game, complete with a custom UI, is able to handle 3 modes of gameplay: Human v. Human, Human v. Easy AI, Human v. Hard AI.
 
 ##Screenshot
-(insert a screenshot here. You may opt to get rid of the title for it. You need at least one screenshot. Make it actually appear here, don't just add a link.)
 
-Here's a demonstration of how to display an image that's uploaded to this repo:
 ![game-board](https://github.com/oplS16projects/Berube-Bousquet-Khoulani/blob/master/checkerboard.PNG)
 
 ##Concepts Demonstrated
