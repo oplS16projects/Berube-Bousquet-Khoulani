@@ -61,7 +61,7 @@ My favorite little bit of code I wrote was the procedure that detects a player w
          #f]))))
 ```
 ####Samir
-I learned more about checkers from this one function than I did playing it my entire life. This one took a little bit of whiteboarding pseudocode, but the result implements a functionality we didn't even know was a rule: If a checkers piece can jump an enemy piece, it must jump it, no exceptions! The code basically checks if, before a non-jump move is made, there exists a jumpable piece, it must be jumped. It returns an error if the player tries avoiding the jump move.
+This one took a little bit of whiteboarding pseudocode, but the result is my favorite bit of code that implements a functionality for the advanced AI: If a checkers piece can jump an enemy piece, it must jump it, no exceptions! The code basically checks if, before a non-jump move is made, there exists a jumpable piece, it must be jumped. It returns an error if the player tries avoiding the jump move.
 
 ```Racket
 (for ([x (in-range 8)])
