@@ -61,7 +61,7 @@ My favorite little bit of code I wrote was the procedure that detects a player w
          #f]))))
 ```
 ####Samir
-This one took a little bit of whiteboarding pseudocode, but the result is my favorite bit of code that implements a functionality for the advanced AI: If a checkers piece can jump an enemy piece, it must jump it, no exceptions! The code basically checks if, before a non-jump move is made, there exists a jumpable piece, it must be jumped. It returns an error if the player tries avoiding the jump move.
+This one took a little bit of whiteboarding pseudocode, but the result is my favorite bit of code that implements a functionality for the advanced AI: If a checkers piece can jump an enemy piece, it has to jump it, no exceptions! The code basically checks if, before a non-jump move is made, there exists a jumpable piece. If so, it must be jumped. It returns an error if the player tries avoiding the jump move.
 
 ```Racket
 (for ([x (in-range 8)])
@@ -70,7 +70,7 @@ This one took a little bit of whiteboarding pseudocode, but the result is my fav
                ((and (equal? (get-state board x y) 'P1) (>= start-x 2) (>= start-y 2) (<= start-x 5)
                      (or (equal? (get-state board (+ 1 start-x) (- start-y 1)) 'P2) (equal? (get-state board (- start-x 1) (- start-y 1)) 'P2))
                      (or (equal? (get-state board (+ 2 start-x) (- start-y 2)) 'BLANK) (equal? (get-state board (- start-x 2) (- start-y 2)) 'BLANK)))
-               (error "player one must make a jump move!"))
+               (error "player one must make a jump move!!"))
                (else void))))
 ```
 
