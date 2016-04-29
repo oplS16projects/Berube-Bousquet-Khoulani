@@ -49,6 +49,17 @@ piece. If so, set-state performs the jump by drawing and erasing the respective 
 ```
 
 ####Brendan (a team member)
+My favorite little bit of code I wrote was the procedure that detects a player winning the game.  It makes a unique use of the for/or loop procedure that will proceed to loop through the given iterations until it returns a non-false.  This allowed me to traverse through the board until I found an opponent piece(there is no win yet) or until the whole board is traverse(there is a win).
+```Racket
+(define (p1-winner board)          ;;returns true if P2 pieces still exist, meaning P1 has not won yet
+  (for/or ([i (in-range 8)])       ;;(written this way because for/or will terminate when returned #t, 
+    (for/or ([j (in-range 8)])     ;;so that the search will stop when the first P2 piece is found.
+      (cond                        ;;if #f is returned then there are no P2 pieces and P1 has won.
+        [(equal? (get-state board i j) 'P2)
+         #t]
+        [else
+         #f]))))
+```
 ####Samir (a team member)
 
 Each team member should identify a favorite expression or procedure, written by them, and explain what it does. Why is it your favorite? What OPL philosophy does it embody?
