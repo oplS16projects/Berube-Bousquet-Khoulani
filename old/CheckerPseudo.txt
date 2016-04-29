@@ -1,0 +1,19 @@
+Psuedo for checkers AI
+-will be further developed into code when our checker API is more flushed out
+-this will likely be the framework for the logic, still have some more reading to do about minimax decision trees
+
+Priority of AI is as follows:
+
+1. Look for a move to block a piece from being taken.
+
+2. Look for a move to take a piece out of danger if a block is not possible.
+
+3. If the AI owns a "kinged" piece, look for safe moves to take enemy pieces.
+
+4. Make any move available that will take a piece from columns 1 thru 6, to column 0 or 7.
+
+5. Make any move that does not endanger the piece that is moving or any other piece.
+
+6. If only a dangerous move exists, use only moves that cause danger to one piece.
+
+7. Else, make a random move.
