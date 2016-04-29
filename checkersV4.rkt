@@ -245,20 +245,25 @@
                 (if (and (equal? (get-state board (- i 2) (+ 2 j)) 'BLANK)
                          (equal? (get-state board i (+ j 4)) 'BLANK))
                     ((lambda args (set-state board i j 'BLANK)
-                     (set-state board (- i 1) (+ j 1) 'BLANK) ;first piece to be jumped
-                     (set-state board (- i 1) (+ j 3) 'BLANK) ; second piece to be jumped
-                     (set-state board i (+ j 4) 'P2))) ; where AI lands after jumping two pieces
+                       (set-state board (- i 1) (+ j 1) 'BLANK) ;first piece to be jumped
+                       (set-state board (- i 1) (+ j 3) 'BLANK) ; second piece to be jumped
+                       (set-state board i (+ j 4) 'P2)))        ; where AI lands after jumping two pieces
                     #f))
 
-                ;checking for double jump down left possibility
+               ;checking for double jump down right-left possibility
                ((and (< i 8) 
                      (< (+ i 2) 8)
                      (< j 6)
                      (>= i 1)
                      (<= j 5)
-                     (equal? (get-state board (+ 1 i) (+ j 1)) 'P1))
-                (if (and (equal? (get-state board (+ 2 i) (+ 2 j)) 'BLANK) )
-                    (move game i j (+ 2 i) (+ 2 j))
+                     (equal? (get-state board (+ i 1) (+ j 1)) 'P1)
+                     (equal? (get-state board (+ i 1) (+ j 3)) 'P1))
+                (if (and (equal? (get-state board (+ i 2) (+ 2 j)) 'BLANK)
+                         (equal? (get-state board i (+ j 4)) 'BLANK))
+                    ((lambda args (set-state board i j 'BLANK)
+                       (set-state board (+ i 1) (+ j 1) 'BLANK) ;first piece to be jumped
+                       (set-state board (+ i 1) (+ j 3) 'BLANK) ; second piece to be jumped
+                       (set-state board i (+ j 4) 'P2)))        ; where AI lands after jumping two pieces
                     #f))
 
 
