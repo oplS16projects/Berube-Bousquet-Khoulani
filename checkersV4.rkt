@@ -245,7 +245,9 @@
                     ((lambda args (set-state board i j 'BLANK)
                        (set-state board (- i 1) (+ j 1) 'BLANK) ; first piece to be jumped
                        (set-state board (- i 1) (+ j 3) 'BLANK) ; second piece to be jumped
-                       (set-state board i (+ j 4) 'P2)))        ; where AI lands after jumping two pieces
+                       (set-state board i (+ j 4) 'P2)          ; where AI lands after jumping two pieces
+                       (if (= p1turn 1) (set! p1turn 0) (set! p1turn 1))
+                       (draw-board board)))       
                     #f))
 
                ;checking for double jump down right-left possibility without using move proc
@@ -259,7 +261,9 @@
                     ((lambda args (set-state board i j 'BLANK)
                        (set-state board (+ i 1) (+ j 1) 'BLANK) ; first piece to be jumped
                        (set-state board (+ i 3) (+ j 3) 'BLANK) ; second piece to be jumped
-                       (set-state board (+ i 4) (+ j 4) 'P2)))  ; where AI lands after jumping two pieces
+                       (set-state board (+ i 4) (+ j 4) 'P2)    ; where AI lands after jumping two pieces
+                       (if (= p1turn 1) (set! p1turn 0) (set! p1turn 1))
+                       (draw-board board)))
                     #f))
 
 
@@ -273,7 +277,9 @@
                     ((lambda args (set-state board i j 'BLANK)
                        (set-state board (+ i 1) (+ j 1) 'BLANK) ; first piece to be jumped
                        (set-state board (+ i 3) (+ j 3) 'BLANK) ; second piece to be jumped
-                       (set-state board (+ i 4) (+ j 4) 'P2)))  ; where AI lands after jumping two pieces
+                       (set-state board (+ i 4) (+ j 4) 'P2)    ; where AI lands after jumping two pieces
+                       (if (= p1turn 1) (set! p1turn 0) (set! p1turn 1))
+                       (draw-board board)))
                     #f))
 
               
@@ -288,7 +294,9 @@
                     ((lambda args (set-state board i j 'BLANK)
                        (set-state board (- i 1) (+ j 1) 'BLANK) ; first piece to be jumped
                        (set-state board (- i 3) (+ j 3) 'BLANK) ; second piece to be jumped
-                       (set-state board (- i 4) (+ j 4) 'P2)))  ; where AI lands after jumping two pieces
+                       (set-state board (- i 4) (+ j 4) 'P2)    ; where AI lands after jumping two pieces
+                       (if (= p1turn 1) (set! p1turn 0) (set! p1turn 1))
+                       (draw-board board)))
                     #f))
 
 
