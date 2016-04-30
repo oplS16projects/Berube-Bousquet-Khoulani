@@ -25,7 +25,7 @@ Identify the OPL concepts demonstrated in your project. Be brief. A simple list 
 * tcp
 
 ##Favorite Scheme Expressions
-####Sean (a team member)
+####Sean
 
 My favorite part of this project was writing the move function. Rather than share the entire function however, I'll display
 my code that allows for a jump move. This first checks if a jump move is attempted (the distance between the start and end
@@ -34,7 +34,7 @@ blank space (jumpedspace gives the x and y coordinates of the space being jumped
 Once it receives the jumpedspace coordinates, it checks to make sure that the space being jumped is indeed equal to the opponent's
 piece. If so, set-state performs the jump by drawing and erasing the respective spaces.
 
-```scheme
+```Racket
 (cond ((and (= (abs (- start-x end-x)) 2) (= (abs (- start-y end-y)) 2)) ;attempting a jump move
          (cond ((and (equal? (get-state board (jumpedspace start-x end-x) (jumpedspace start-y end-y)) 'P2) (= p1turn 1)) ;p1 jumps p2
                 (set-state board (jumpedspace start-x end-x) (jumpedspace start-y end-y) 'BLANK)
